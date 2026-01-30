@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMorph Concept - Depth Hero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050507;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            height: 100vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 1. The Container for 3D Layering */
+        .hero-stage {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+            /* Essential for 3D feel */
+            overflow: hidden;
+        }
+
+        /* 2. The Background Text (TECHMORPH) */
+        .depth-text {
+            position: absolute;
+            font-size: 15vw;
+            /* Huge responsive text */
+            font-weight: 900;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
+            /* Outline effect like reference */
+            background: linear-gradient(to bottom, #fff, #555);
+
+            text-align: center;
+            z-index: 1;
+            /* Behind foreground, in front of background */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            letter-spacing: -5px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        /* Optional: Fill variation */
+        .depth-text::after {
+            content: 'TECHMORPH';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: rgba(255, 255, 255, 0.03);
+            /* Subtle fill */
+            z-index: -1;
+        }
+
+        /* 3. The Foreground Element (In Front) */
+        .foreground-object {
+            position: relative;
+            z-index: 10;
+            /* MUST be higher than text */
+            width: 400px;
+            height: 500px;
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Simulating the "hanging" object or 3D element */
+        .floating-cube {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #7000ff, #00f3ff);
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(112, 0, 255, 0.4);
+            z-index: 12;
+            animation: float-delayed 8s ease-in-out infinite;
+        }
+
+        .content {
+            z-index: 11;
+        }
+
+        h1 {
+            font-size: 3rem;
+            line-height: 1.1;
+            background: linear-gradient(to right, #fff, #aaa);
+
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #a0a0b0;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            background: #7000ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 10px 20px rgba(112, 0, 255, 0.3);
+        }
+
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotateX(0);
+            }
+
+            50% {
+                transform: translateY(-20px) rotateX(5deg);
+            }
+        }
+
+        @keyframes float-delayed {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 99;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanlines"></div>
+    <div class="hero-stage">
+        <!-- THE BACKGROUND TEXT -->
+        <div class="depth-text">TECHMORPH</div>
+
+        <!-- THE FOREGROUND ELEMENT (Sitting in front of text) -->
+        <div class="foreground-object">
+            <div class="floating-cube"></div> <!-- Represents the 3D element -->
+            <div class="content">
+                <h1>Future of<br>Digital</h1>
+                <p>We build immersive web experiences that hang between creativity and technology.</p>
+                <a href="#" class="btn">Explore</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
